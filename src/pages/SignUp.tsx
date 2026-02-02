@@ -55,8 +55,12 @@ export default function SignUp({ onSignUpComplete }: SignUpProps) {
         }
         break
       case 6:
-        if (!formData.bio.trim()) newErrors.push('Bio is required')
-        break
+  // Only validate bio if we're showing the bio field (not the diaspora opt-in)
+  const shouldShowDiasporaOptIn = formData.gender === 'female' && formData.churchAttendance === 'attend';
+  if (!shouldShowDiasporaOptIn && !formData.bio.trim()) {
+    newErrors.push('Bio is required')
+  }
+  break
     }
 
     setErrors(newErrors)
