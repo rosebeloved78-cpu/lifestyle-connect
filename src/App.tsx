@@ -29,20 +29,20 @@ export default function App() {
               <span className="text-2xl font-bold">Lifestyle Connect</span>
             </div>
 
-           {/* Desktop Navigation */}
-<div className="hidden md:flex gap-8">
-  <button onClick={() => setCurrentPage('home')} className="hover:text-rose-100 transition">Home</button>
-  {!userProfile && (
-    <button onClick={() => setCurrentPage('signup')} className="hover:text-rose-100 transition">Sign Up</button>
-  )}
-  {userProfile && (
-    <>
-      <button onClick={() => setCurrentPage('dashboard')} className="hover:text-rose-100 transition">Dashboard</button>
-      <button onClick={() => setCurrentPage('diaspora')} className="hover:text-rose-100 transition">Diaspora</button>
-      <button onClick={() => setCurrentPage('profile-settings')} className="hover:text-rose-100 transition">Profile Settings</button>
-    </>
-  )}
-</div>
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex gap-8">
+              <button onClick={() => setCurrentPage('home')} className="hover:text-rose-100 transition">Home</button>
+              {!userProfile && (
+                <button onClick={() => setCurrentPage('signup')} className="hover:text-rose-100 transition">Sign Up</button>
+              )}
+              {userProfile && (
+                <>
+                  <button onClick={() => setCurrentPage('dashboard')} className="hover:text-rose-100 transition">Dashboard</button>
+                  <button onClick={() => setCurrentPage('diaspora')} className="hover:text-rose-100 transition">Diaspora</button>
+                  <button onClick={() => setCurrentPage('profile-settings')} className="hover:text-rose-100 transition">Profile Settings</button>
+                </>
+              )}
+            </div>
 
             {/* Mobile Menu Button */}
             <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
@@ -54,7 +54,9 @@ export default function App() {
           {mobileMenuOpen && (
             <div className="md:hidden pb-4 border-t border-rose-400">
               <button onClick={() => { setCurrentPage('home'); setMobileMenuOpen(false); }} className="block w-full text-left py-2 hover:text-rose-100">Home</button>
-              <button onClick={() => { setCurrentPage('signup'); setMobileMenuOpen(false); }} className="block w-full text-left py-2 hover:text-rose-100">Sign Up</button>
+              {!userProfile && (
+                <button onClick={() => { setCurrentPage('signup'); setMobileMenuOpen(false); }} className="block w-full text-left py-2 hover:text-rose-100">Sign Up</button>
+              )}
               {userProfile && (
                 <>
                   <button onClick={() => { setCurrentPage('dashboard'); setMobileMenuOpen(false); }} className="block w-full text-left py-2 hover:text-rose-100">Dashboard</button>
@@ -91,9 +93,15 @@ export default function App() {
               <h4 className="font-bold mb-4">Quick Links</h4>
               <ul className="space-y-2 text-gray-300">
                 <li><button onClick={() => setCurrentPage('home')} className="hover:text-white">Home</button></li>
-                <li><button onClick={() => setCurrentPage('signup')} className="hover:text-white">Sign Up</button></li>
-                <li><button onClick={() => setCurrentPage('dashboard')} className="hover:text-white">Dashboard</button></li>
-                <li><button onClick={() => setCurrentPage('profile-settings')} className="hover:text-white">Profile Settings</button></li>
+                {!userProfile && (
+                  <li><button onClick={() => setCurrentPage('signup')} className="hover:text-white">Sign Up</button></li>
+                )}
+                {userProfile && (
+                  <>
+                    <li><button onClick={() => setCurrentPage('dashboard')} className="hover:text-white">Dashboard</button></li>
+                    <li><button onClick={() => setCurrentPage('profile-settings')} className="hover:text-white">Profile Settings</button></li>
+                  </>
+                )}
               </ul>
             </div>
             <div>
@@ -116,4 +124,3 @@ export default function App() {
     </div>
   )
 }
-
