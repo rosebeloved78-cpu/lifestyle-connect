@@ -4,8 +4,8 @@ import Home from './pages/Home'
 import SignUp from './pages/SignUp'
 import Dashboard from './pages/Dashboard'
 import DiasporaConnect from './pages/DiasporaConnect'
-import ProfileSettings from './pages/ProfileSettings';
-type PageType = 'home' | 'signup' | 'dashboard' | 'diaspora' | 'profile-settings'
+
+type PageType = 'home' | 'signup' | 'dashboard' | 'diaspora'
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageType>('home')
@@ -35,6 +35,79 @@ export default function App() {
               {userProfile && (
                 <>
                   <button onClick={() => setCurrentPage('dashboard')} className="hover:text-rose-100 transition">Dashboard</button>
+                  <button onClick={() => setCurrentPage('diaspora')} className="hover:text-rose-100 transition">Diaspora</button>
+                </>
+              )}
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+              {mobileMenuOpen ? <X /> : <Menu />}
+            </button>
+          </div>
+
+          {/* Mobile Navigation */}
+          {mobileMenuOpen && (
+            <div className="md:hidden pb-4 border-t border-rose-400">
+              <button onClick={() => { setCurrentPage('home'); setMobileMenuOpen(false); }} className="block w-full text-left py-2 hover:text-rose-100">Home</button>
+              <button onClick={() => { setCurrentPage('signup'); setMobileMenuOpen(false); }} className="block w-full text-left py-2 hover:text-rose-100">Sign Up</button>
+              {userProfile && (
+                <>
+                  <button onClick={() => { setCurrentPage('dashboard'); setMobileMenuOpen(false); }} className="block w-full text-left py-2 hover:text-rose-100">Dashboard</button>
+                  <button onClick={() => { setCurrentPage('diaspora'); setMobileMenuOpen(false); }} className="block w-full text-left py-2 hover:text-rose-100">Diaspora</button>
+                </>
+              )}
+            </div>
+          )}
+        </div>
+      </nav>
+
+      {/* Page Content */}
+      <main className="min-h-[calc(100vh-64px)]">
+        {currentPage === 'home' && <Home onGetStarted={() => setCurrentPage('signup')} />}
+        {currentPage === 'signup' && <SignUp onSignUpComplete={handleSignUpComplete} />}
+        {currentPage === 'dashboard' && userProfile && <Dashboard userProfile={userProfile} />}
+        {currentPage === 'diaspora' && <DiasporaConnect />}
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-gray-800 text-white py-8 mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+                <Heart className="w-5 h-5 fill-rose-500 text-rose-500" />
+                Lifestyle Connect
+              </h3>
+              <p className="text-gray-300">Connect with faith, connect with purpose.</p>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4">Quick Links</h4>
+              <ul className="space-y-2 text-gray-300">
+                <li><button onClick={() => setCurrentPage('home')} className="hover:text-white">Home</button></li>
+                <li><button onClick={() => setCurrentPage('signup')} className="hover:text-white">Sign Up</button></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4">Location</h4>
+              <p className="text-gray-300 flex items-center gap-2">
+                <MapPin className="w-4 h-4" />
+                Zimbabwe
+              </p>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4">Support</h4>
+              <p className="text-gray-300">Contact: support@lifestyleconnect.zw</p>
+            </div>
+          </div>
+          <div className="border-t border-gray-700 pt-8 text-center text-gray-300">
+            <p>&copy; 2024 Lifestyle Connect. All rights reserved. Zimbabwe only.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}                  <button onClick={() => setCurrentPage('dashboard')} className="hover:text-rose-100 transition">Dashboard</button>
                   <button onClick={() => setCurrentPage('diaspora')} className="hover:text-rose-100 transition">Diaspora</button>
                 </>
               )}
