@@ -1,6 +1,11 @@
 import { useState } from 'react'
 import { Heart, X, Filter, MapPin, Church, Users } from 'lucide-react'
-
+<button 
+  onClick={() => setCurrentPage('profile-settings')}
+  className="bg-rose-500 text-white px-4 py-2 rounded-lg hover:bg-rose-600"
+>
+  Edit Profile Details
+</button>
 interface DashboardProps {
   userProfile: any
 }
