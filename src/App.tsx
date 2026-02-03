@@ -4,8 +4,9 @@ import Home from './pages/Home'
 import SignUp from './pages/SignUp'
 import Dashboard from './pages/Dashboard'
 import DiasporaConnect from './pages/DiasporaConnect'
+import ProfileSettings from './pages/ProfileSettings'
 
-type PageType = 'home' | 'signup' | 'dashboard' | 'diaspora'
+type PageType = 'home' | 'signup' | 'dashboard' | 'diaspora' | 'profile-settings'
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageType>('home')
@@ -28,17 +29,20 @@ export default function App() {
               <span className="text-2xl font-bold">Lifestyle Connect</span>
             </div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex gap-8">
-              <button onClick={() => setCurrentPage('home')} className="hover:text-rose-100 transition">Home</button>
-              <button onClick={() => setCurrentPage('signup')} className="hover:text-rose-100 transition">Sign Up</button>
-              {userProfile && (
-                <>
-                  <button onClick={() => setCurrentPage('dashboard')} className="hover:text-rose-100 transition">Dashboard</button>
-                  <button onClick={() => setCurrentPage('diaspora')} className="hover:text-rose-100 transition">Diaspora</button>
-                </>
-              )}
-            </div>
+           {/* Desktop Navigation */}
+<div className="hidden md:flex gap-8">
+  <button onClick={() => setCurrentPage('home')} className="hover:text-rose-100 transition">Home</button>
+  {!userProfile && (
+    <button onClick={() => setCurrentPage('signup')} className="hover:text-rose-100 transition">Sign Up</button>
+  )}
+  {userProfile && (
+    <>
+      <button onClick={() => setCurrentPage('dashboard')} className="hover:text-rose-100 transition">Dashboard</button>
+      <button onClick={() => setCurrentPage('diaspora')} className="hover:text-rose-100 transition">Diaspora</button>
+      <button onClick={() => setCurrentPage('profile-settings')} className="hover:text-rose-100 transition">Profile Settings</button>
+    </>
+  )}
+</div>
 
             {/* Mobile Menu Button */}
             <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
@@ -55,6 +59,7 @@ export default function App() {
                 <>
                   <button onClick={() => { setCurrentPage('dashboard'); setMobileMenuOpen(false); }} className="block w-full text-left py-2 hover:text-rose-100">Dashboard</button>
                   <button onClick={() => { setCurrentPage('diaspora'); setMobileMenuOpen(false); }} className="block w-full text-left py-2 hover:text-rose-100">Diaspora</button>
+                  <button onClick={() => { setCurrentPage('profile-settings'); setMobileMenuOpen(false); }} className="block w-full text-left py-2 hover:text-rose-100">Profile Settings</button>
                 </>
               )}
             </div>
@@ -68,6 +73,7 @@ export default function App() {
         {currentPage === 'signup' && <SignUp onSignUpComplete={handleSignUpComplete} />}
         {currentPage === 'dashboard' && userProfile && <Dashboard userProfile={userProfile} />}
         {currentPage === 'diaspora' && <DiasporaConnect />}
+        {currentPage === 'profile-settings' && userProfile && <ProfileSettings userProfile={userProfile} />}
       </main>
 
       {/* Footer */}
@@ -86,6 +92,8 @@ export default function App() {
               <ul className="space-y-2 text-gray-300">
                 <li><button onClick={() => setCurrentPage('home')} className="hover:text-white">Home</button></li>
                 <li><button onClick={() => setCurrentPage('signup')} className="hover:text-white">Sign Up</button></li>
+                <li><button onClick={() => setCurrentPage('dashboard')} className="hover:text-white">Dashboard</button></li>
+                <li><button onClick={() => setCurrentPage('profile-settings')} className="hover:text-white">Profile Settings</button></li>
               </ul>
             </div>
             <div>
@@ -108,3 +116,4 @@ export default function App() {
     </div>
   )
 }
+
