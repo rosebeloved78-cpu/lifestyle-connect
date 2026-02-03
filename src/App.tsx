@@ -4,8 +4,8 @@ import Home from './pages/Home'
 import SignUp from './pages/SignUp'
 import Dashboard from './pages/Dashboard'
 import DiasporaConnect from './pages/DiasporaConnect'
-
-type PageType = 'home' | 'signup' | 'dashboard' | 'diaspora'
+import ProfileSettings from './pages/ProfileSettings';
+type PageType = 'home' | 'signup' | 'dashboard' | 'diaspora' | 'profile-settings'
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageType>('home')
@@ -68,6 +68,7 @@ export default function App() {
         {currentPage === 'signup' && <SignUp onSignUpComplete={handleSignUpComplete} />}
         {currentPage === 'dashboard' && userProfile && <Dashboard userProfile={userProfile} />}
         {currentPage === 'diaspora' && <DiasporaConnect />}
+        {currentPage === 'profile-settings' && userProfile && <ProfileSettings userProfile={userProfile} />}
       </main>
 
       {/* Footer */}
